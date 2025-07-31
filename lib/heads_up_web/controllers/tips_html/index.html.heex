@@ -3,7 +3,7 @@
   <p>Here are some tips to keep you safe:</p>
   <ol>
     <%= for tip <- @tips do %>
-      <li>{tip.text}</li>
+      <li><a href={~p"/tips/#{tip.id}"}>{tip.text}</a></li>
     <% end %>
   </ol>
   <p>{@emojis}</p>
