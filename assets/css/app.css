@@ -8,19 +8,19 @@
 
   /* Rules */
 
-  .rules h1 {
+  .tips h1 {
     @apply text-xl font-extrabold;
   }
 
-  .rules p {
+  .tips p {
     @apply mt-4;
   }
 
-  .rules ol {
+  .tips ol {
     @apply list-decimal list-inside space-y-2 mt-4;
   }
 
-  .rules ol li a {
+  .tips ol li a {
     @apply hover:text-sky-600 transition ease-in-out duration-150;
   }
 

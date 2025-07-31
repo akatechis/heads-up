@@ -8,22 +8,31 @@ defmodule HeadsUpWeb.Router do
     plug :put_root_layout, html: {HeadsUpWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    # plug :spy
   end
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  def spy(conn, _opts) do
+    greeting = ~w(Hi Howdy Hello Hey) |> Enum.random()
+    conn = assign(conn, :greeting, greeting)
+    # IO.inspect(conn)
+    conn
+  end
+
   scope "/", HeadsUpWeb do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/tips", TipsController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", HeadsUpWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", HeadsUpWeb do
+    pipe_through :api
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:heads_up, :dev_routes) do
