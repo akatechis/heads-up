@@ -1,10 +1,13 @@
 <div class="tips">
   <h1>Safety Tips</h1>
+  
   <p>Here are some tips to keep you safe:</p>
+  
   <ol>
     <%= for tip <- @tips do %>
       <li><a href={~p"/tips/#{tip.id}"}>{tip.text}</a></li>
     <% end %>
   </ol>
+  
   <p>{@emojis}</p>
 </div>
