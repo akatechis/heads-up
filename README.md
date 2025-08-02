@@ -1,5 +1,10 @@
 # HeadsUp
 
+## Preview on Fly.io!
+[https://heads-up-small-glade-1559.fly.dev/](https://heads-up-small-glade-1559.fly.dev/)
+
+## Development
+
 To start your Phoenix server:
 
   * Run `mix setup` to install and setup dependencies
@@ -9,7 +14,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## Learn more
+## Phoenix Resources
 
   * Official website: https://www.phoenixframework.org/
   * Guides: https://hexdocs.pm/phoenix/overview.html
