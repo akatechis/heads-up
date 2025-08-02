@@ -1,6 +1,5 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-
-app = 'heads-up-small-glade-1559'
+app = 'heads-up-autumn-paper-5211'
 primary_region = 'iad'
 kill_signal = 'SIGTERM'
 
@@ -10,7 +9,7 @@ kill_signal = 'SIGTERM'
   release_command = '/app/bin/migrate'
 
 [env]
-  PHX_HOST = 'heads-up-small-glade-1559.fly.dev'
+  PHX_HOST = 'heads-up-autumn-paper-5211.fly.dev'
   PORT = '8080'
 
 [http_service]
