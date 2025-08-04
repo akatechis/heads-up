@@ -85,7 +85,7 @@ RUN chown nobody /app
 ENV MIX_ENV="prod"
 
 # Only copy the final release from the build stage
-COPY --from=builder --chmod=+x --chown=nobody:root /app/_build/${MIX_ENV}/rel/heads_up ./
+COPY --from=builder --chmod=755 --chown=nobody:root /app/_build/${MIX_ENV}/rel/heads_up ./
 
 USER nobody
 
