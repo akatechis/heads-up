@@ -84,13 +84,10 @@ RUN chown nobody /app
 # set runner ENV
 ENV MIX_ENV="prod"
 
-# Only copy the final release from the build stage
+# Only copy the final release from the build stage, make it executable and owned by `nobody`
 COPY --from=builder --chmod=755 --chown=nobody:root /app/_build/${MIX_ENV}/rel/heads_up ./
 
 USER nobody
-
-# For some reason, the release files are not executable by default.
-# RUN chmod +x /app/bin/*
 
 # If using an environment that doesn't automatically reap zombie processes, it is
 # advised to add an init process such as tini via `apt-get install`

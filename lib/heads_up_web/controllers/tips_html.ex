@@ -7,9 +7,9 @@ defmodule HeadsUpWeb.TipsHTML do
     ~H"""
     <div class="tips">
       <h1>Tip</h1>
-      
+
       <p>{@tip.text}</p>
-       <a href="/tips">Back to Tips</a>
+      <a href="/tips">Back to Tips</a>
     </div>
     """
   end

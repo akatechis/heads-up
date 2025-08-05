@@ -1,7 +1,7 @@
 # HeadsUp
 
 ## Preview on Fly.io!
-[https://heads-up-small-glade-1559.fly.dev/](https://heads-up-small-glade-1559.fly.dev/)
+[https://heads-up-autumn-paper-5211.fly.dev/](https://heads-up-autumn-paper-5211.fly.dev/)
 
 ## Development
 

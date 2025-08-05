@@ -18,9 +18,9 @@ defmodule HeadsUpWeb.EffortLive do
     ~H"""
     <div class="effort">
       <h1>Community Love</h1>
-      
+
       <p>This calculator will help you estimate the total time needed to respond to an event</p>
-      
+
       <section>
         <button phx-click="add" phx-value-quantity="3">+3</button>
         <div>{@responders}</div>
@@ -29,7 +29,7 @@ defmodule HeadsUpWeb.EffortLive do
         =
         <div>{@responders * @minutes_per_responder} minutes</div>
       </section>
-      
+
       <form phx-submit="set-minutes">
         <label>Minutes per responder:</label>
         <input type="number" name="minutes_per_responder" value={@minutes_per_responder} />
