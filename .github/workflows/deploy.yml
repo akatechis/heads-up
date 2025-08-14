@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: Deploy app
+    name: Deploy App
     permissions:
       contents: read
       packages: write
