@@ -14,6 +14,9 @@ concurrency:
 jobs:
   deploy:
     name: Deploy app
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     environment: production
