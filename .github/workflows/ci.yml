@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  build:
-    name: Build and test
+  build-test:
+    name: Build and Test
     runs-on: ubuntu-latest
     services:
       postgres:
