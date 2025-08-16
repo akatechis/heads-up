@@ -24,6 +24,18 @@ h1 {
     @apply hover:text-sky-600 transition ease-in-out duration-150;
   }
 
+  .tip p {
+    @apply mt-4;
+  }
+
+  .tip ol {
+    @apply list-decimal list-inside space-y-2 mt-4;
+  }
+
+  .tip a {
+    @apply my-8 underline hover:text-sky-600 transition ease-in-out duration-150;
+  }
+
   /* EstimatorLive */
 
   .effort h1 {

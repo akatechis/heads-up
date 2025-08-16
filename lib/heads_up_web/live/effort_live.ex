@@ -5,12 +5,14 @@ defmodule HeadsUpWeb.EffortLive do
   @initial_minutes_per_responder 10
 
   def mount(_params, _session, socket) do
-    schedule_tick()
+    # Uncomment the line below to enable periodic updates
+    # schedule_tick()
 
     {:ok,
      assign(socket,
        responders: @initial_responders,
-       minutes_per_responder: @initial_minutes_per_responder
+       minutes_per_responder: @initial_minutes_per_responder,
+       page_title: "Effort"
      )}
   end
 

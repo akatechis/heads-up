@@ -5,7 +5,7 @@ defmodule HeadsUpWeb.IncidentLive.Index do
   import HeadsUpWeb.CustomComponents
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :incidents, list_incidents())}
+    {:ok, assign(socket, incidents: list_incidents(), page_title: "Incidents")}
   end
 
   def render(assigns) do
@@ -27,7 +27,7 @@ defmodule HeadsUpWeb.IncidentLive.Index do
     <div class="card">
       <img src={@incident.image_path} />
       <h2>{@incident.name}</h2>
-      
+
       <div class="details">
         <.badge text={@incident.status} />
         <div class="priority">

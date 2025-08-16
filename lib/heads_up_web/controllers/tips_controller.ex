@@ -14,7 +14,7 @@ defmodule HeadsUpWeb.TipsController do
     tip = Tips.get_tip(id)
 
     if tip do
-      render(conn, :show, tip: tip)
+      render(conn, :show, tip: tip, page_title: "Tip #{tip.id}")
     else
       send_resp(conn, :not_found, "Tip not found")
     end

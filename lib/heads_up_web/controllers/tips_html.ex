@@ -5,8 +5,8 @@ defmodule HeadsUpWeb.TipsHTML do
 
   def show(assigns) do
     ~H"""
-    <div class="tips">
-      <h1>Tip</h1>
+    <div class="tip">
+      <h1>Tip {@tip.id}</h1>
 
       <p>{@tip.text}</p>
       <a href="/tips">Back to Tips</a>
