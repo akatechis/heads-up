@@ -21,20 +21,21 @@ defmodule HeadsUpWeb.IncidentLive.Index do
   end
 
   attr :incident, HeadsUp.Incident, required: true
-
   def incident_card(assigns) do
     ~H"""
-    <div class="card">
-      <img src={@incident.image_path} />
-      <h2>{@incident.name}</h2>
+    <.link navigate={~p"/incidents/#{@incident}"}>
+      <div class="card">
+        <img src={@incident.image_path} />
+        <h2>{@incident.name}</h2>
 
-      <div class="details">
-        <.badge text={@incident.status} />
-        <div class="priority">
-          {@incident.priority}
+        <div class="details">
+          <.badge text={@incident.status} />
+          <div class="priority">
+            {@incident.priority}
+          </div>
         </div>
       </div>
-    </div>
+    </.link>
     """
   end
 

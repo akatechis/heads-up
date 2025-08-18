@@ -3,7 +3,7 @@ alerts:
 - rule: DOMAIN_FAILED
 databases:
 - engine: PG
-  name: heads-up-db
+  name: db
   version: "17"
 features:
 - buildpack-stack=ubuntu-22
@@ -23,7 +23,7 @@ services:
   envs:
   - key: DATABASE_URL
     scope: RUN_TIME
-    value: ${heads-up-db.DATABASE_URL}
+    value: ${db.DATABASE_URL}
   - key: SECRET_KEY_BASE
     scope: RUN_TIME
     type: SECRET

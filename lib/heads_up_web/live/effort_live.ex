@@ -32,9 +32,9 @@ defmodule HeadsUpWeb.EffortLive do
         <div>{@responders * @minutes_per_responder} minutes</div>
       </section>
 
-      <form phx-submit="set-minutes">
+      <form>
         <label>Minutes per responder:</label>
-        <input type="number" name="minutes_per_responder" value={@minutes_per_responder} />
+        <input phx-change="set-minutes" type="number" name="minutes_per_responder" value={@minutes_per_responder} />
       </form>
     </div>
     """

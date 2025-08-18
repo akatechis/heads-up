@@ -26,10 +26,12 @@ defmodule HeadsUpWeb.Router do
     pipe_through :browser
 
     live "/", IncidentLive.Index
+    live "/signup", SignupLive
     get "/tips", TipsController, :index
     get "/tips/:id", TipsController, :show
     live "/effort", EffortLive
     live "/incidents", IncidentLive.Index
+    live "/incidents/:id", IncidentLive.Show
   end
 
   # Other scopes may use custom stacks.
