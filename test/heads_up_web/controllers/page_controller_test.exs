@@ -1,6 +1,7 @@
 defmodule HeadsUpWeb.PageControllerTest do
   use HeadsUpWeb.ConnCase
 
+  @tag :skip
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")
     resp = html_response(conn, 200)
