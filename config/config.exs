@@ -61,9 +61,6 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-IO.puts "DATABASE_URL before env config #{System.get_env("DATABASE_URL")}"
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
-
-IO.puts "DATABASE_URL after env config #{System.get_env("DATABASE_URL")}"
