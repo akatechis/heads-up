@@ -14,7 +14,7 @@ defmodule HeadsUpWeb.IncidentLive.Show do
       socket
       |> assign(:page_title, "#{incident.name} Incident Details")
       |> assign(:incident, incident)
-      |> assign(:urgent_incidents , Incidents.urgent_incidents(incident))
+      |> assign(:urgent_incidents , Incidents.urgent_incidents())
 
     {:noreply, socket}
   end
@@ -52,13 +52,14 @@ defmodule HeadsUpWeb.IncidentLive.Show do
     <section>
       <h4>Urgent Incidents</h4>
       <ul>
-        <.incident_card :for={incident <- @incidents} incident={incident} />
+        <.incident_link :for={incident <- @incidents} incident={incident} />
       </ul>
     </section>
     """
   end
 
-  def incident_card(assigns) do
+  attr :incident, HeadsUp.Incidents.Incident, required: true
+  def incident_link(assigns) do
     ~H"""
     <li class="my-2 align-left">
       <.link navigate={~p"/incidents/#{@incident}"}>

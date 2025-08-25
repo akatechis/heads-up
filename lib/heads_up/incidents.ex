@@ -1,45 +1,18 @@
 defmodule HeadsUp.Incidents do
+  require Ecto.Query
   alias HeadsUp.Incidents.Incident
+  alias HeadsUp.Repo
+
   def list_incidents do
-    [
-      %Incident{
-        id: 1,
-        name: "Lost Dog",
-        description: "A friendly dog is wandering around the neighborhood. 🐶",
-        priority: 2,
-        status: :pending,
-        image_path: "/images/lost-dog.png"
-      },
-      %Incident{
-        id: 2,
-        name: "Flat Tire",
-        description: "Our beloved ice cream truck has a flat tire! 🚗",
-        priority: 1,
-        status: :resolved,
-        image_path: "/images/flat-tire.png"
-      },
-      %Incident{
-        id: 3,
-        name: "Bear In The Trash",
-        description: "A curious bear is digging through the trash! 🐻",
-        priority: 1,
-        status: :canceled,
-        image_path: "/images/bear-in-trash.png"
-      }
-    ]
+    Repo.all(Incident)
   end
 
-  def get_incident(id) when is_integer(id) do
-    Enum.find(list_incidents(), fn incident -> incident.id == id end)
+  def get_incident(id) do
+    Repo.get(Incident, id)
   end
 
-  def get_incident(id) when is_binary(id) do
-    id
-    |> String.to_integer()
-    |> get_incident()
-  end
-
-  def urgent_incidents(incident) do
-    list_incidents() |> List.delete(incident)
+  def urgent_incidents() do
+    query = Ecto.Query.from(i in Incident, where: i.priority >= 3 and i.status != :resolved, limit: 3)
+    Repo.all(query)
   end
 end
