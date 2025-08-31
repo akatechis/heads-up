@@ -7,12 +7,7 @@ defmodule HeadsUpWeb.IncidentLive.Index do
     socket = socket
       |> assign(page_title: "Incidents")
       |> stream(:incidents, Incidents.list_incidents())
-
-    # IO.inspect(socket, label: "IncidentLive.Index MOUNT")
-    # socket = attach_hook(socket, :log_stream, :after_render, fn socket ->
-    #   IO.inspect(socket.assigns.streams, label: "Streams after render")
-    #   socket
-    # end)
+      |> assign(:form, to_form(%{"q" => "", "status" => "", "sort_by" => ""}))
 
     {:ok, socket}
   end
@@ -22,10 +17,28 @@ defmodule HeadsUpWeb.IncidentLive.Index do
     <h1>Incidents</h1>
 
     <div class="incident-index">
+      <.incident_filters form={@form} />
       <div class="incidents" id="incidents" phx-update="stream">
+        <div id="empty" class="no-results only:block hidden">
+          No raffles found. Try changing your filters.
+        </div>
         <.incident_card :for={{dom_id, incident} <- @streams.incidents} incident={incident} id={dom_id} />
       </div>
     </div>
+    """
+  end
+
+  def incident_filters(assigns) do
+    ~H"""
+    <.form for={@form} id="filter-form" phx-change="filter" phx-submit="filter">
+      <.input field={@form[:q]} type="text" placeholder="Search..." autocomplete="off" phx-debounce="500" />
+      <.input field={@form[:status]} type="select" prompt="Status" options={Ecto.Enum.values(Incidents.Incident, :status)} />
+      <.input field={@form[:sort_by]} type="select" prompt="Sort by" options={[
+        "Name": "name_asc",
+        "Priority (high to low)": "priority_desc",
+        "Priority (low to high)": "priority_asc"
+      ]} />
+    </.form>
     """
   end
 
@@ -47,5 +60,13 @@ defmodule HeadsUpWeb.IncidentLive.Index do
       </div>
     </.link>
     """
+  end
+
+  def handle_event("filter", params, socket) do
+    socket = socket
+      |> assign(:form, to_form(params))
+      |> stream(:incidents, Incidents.filter_incidents(params), reset: true)
+
+    {:noreply, socket}
   end
 end
