@@ -61,8 +61,8 @@ defmodule HeadsUpWeb.IncidentLive.Show do
   attr :incident, HeadsUp.Incidents.Incident, required: true
   def incident_link(assigns) do
     ~H"""
-    <li class="my-2 align-left">
-      <.link navigate={~p"/incidents/#{@incident}"}>
+    <li class="my-2">
+      <.link navigate={~p"/incidents/#{@incident}"} class="flex items-center gap-2 p-2 hover:bg-gray-200">
         <img src={@incident.image_path} class="inline-block w-1/4" />
         {@incident.name}
       </.link>

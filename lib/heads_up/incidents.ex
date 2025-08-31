@@ -2,6 +2,7 @@ defmodule HeadsUp.Incidents do
   require Ecto.Query
   alias HeadsUp.Incidents.Incident
   alias HeadsUp.Repo
+  import Ecto.Query
 
   def list_incidents do
     Repo.all(Incident)
@@ -12,7 +13,7 @@ defmodule HeadsUp.Incidents do
   end
 
   def urgent_incidents() do
-    query = Ecto.Query.from(i in Incident, where: i.priority >= 3 and i.status != :resolved, limit: 3)
+    query = Incident |> where([i], i.priority >= 3 and i.status != :resolved) |> order_by(:name) |> limit(3)
     Repo.all(query)
   end
 end
