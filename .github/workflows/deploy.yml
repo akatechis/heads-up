@@ -45,7 +45,13 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha
           labels: ${{ steps.meta.outputs.labels }}
           secrets: |
             GITHUB_TOKEN=${{ secrets.WRITE_PACKAGES_TOKEN }}
