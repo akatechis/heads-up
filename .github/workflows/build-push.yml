@@ -1,14 +1,12 @@
-name: Deploy
+name: Build and Push Docker image
 
 on:
   push:
-    branches:
-      - master
     tags:
       - v*
 
 concurrency:
-    group: deploy-group
+    group: build-docker-group
     cancel-in-progress: true
 
 env:
