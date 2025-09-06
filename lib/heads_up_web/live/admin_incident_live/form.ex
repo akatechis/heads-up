@@ -1,6 +1,7 @@
 defmodule HeadsUpWeb.AdminIncidentLive.Form do
   use HeadsUpWeb, :live_view
   import HeadsUpWeb.CoreComponents
+  alias HeadsUp.Admin
 
   def mount(_params, _session, socket) do
     socket = socket
@@ -27,7 +28,7 @@ defmodule HeadsUpWeb.AdminIncidentLive.Form do
       <.input field={@form[:description]} type="textarea" label="Description" />
       <.input field={@form[:image_path]} label="Image path" placeholder="/images/placeholder.jpg" />
       <:actions>
-        <.button type="submit" class="button primary">
+        <.button phx-disable-with="Saving...">
           Save Incident
         </.button>
       </:actions>
@@ -36,5 +37,13 @@ defmodule HeadsUpWeb.AdminIncidentLive.Form do
       Back to Incidents
     </.back>
     """
+  end
+
+  def handle_event("save", %{"incident" => incident_params}, socket) do
+    _incident = Admin.create_incident(incident_params)
+
+    socket = push_navigate(socket, to: ~p"/admin/incidents")
+
+    {:noreply, socket}
   end
 end
