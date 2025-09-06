@@ -15,6 +15,11 @@ defmodule HeadsUpWeb.AdminIncidentLive.Index do
     ~H"""
     <.header>
       {@page_title}
+      <:actions>
+        <.link class="button primary" phx-link="redirect" navigate={~p"/admin/incidents/new"}>
+          New Incident
+        </.link>
+      </:actions>
     </.header>
     <div class="admin-index">
       <.table id="incidents-table" rows={@streams.incidents}>
