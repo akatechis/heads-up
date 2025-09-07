@@ -24,9 +24,7 @@ defmodule HeadsUpWeb.AdminIncidentLive.Index do
     <div class="admin-index">
       <.table id="incidents-table" rows={@streams.incidents}>
         <:col label="Name" :let={{_dom_id, incident}}>
-          <.link navigate={~p"/incidents/#{incident}"}>
-            {incident.name}
-          </.link>
+          {incident.name}
         </:col>
         <:col label="Status" :let={{_dom_id, incident}}>
           <.badge text={incident.status} />
@@ -34,6 +32,11 @@ defmodule HeadsUpWeb.AdminIncidentLive.Index do
         <:col label="Priority" :let={{_dom_id, incident}}>
           <p>{incident.priority}</p>
         </:col>
+        <:action :let={{_dom_id, incident}}>
+          <.link navigate={~p"/incidents/#{incident}"} target="_blank" rel="noreferrer noopener">
+            <.icon name="hero-magnifying-glass" class="h-4 w-4" /> Preview
+          </.link>
+        </:action>
         <:action :let={{_dom_id, incident}}>
           <.link phx-link="redirect" navigate={~p"/admin/incidents/#{incident}/edit"}>
             <.icon name="hero-pencil" class="h-4 w-4" /> Edit
