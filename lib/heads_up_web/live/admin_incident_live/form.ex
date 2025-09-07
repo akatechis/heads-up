@@ -4,15 +4,28 @@ defmodule HeadsUpWeb.AdminIncidentLive.Form do
   alias HeadsUp.Admin
   alias HeadsUp.Incidents.Incident
 
-  def mount(_params, _session, socket) do
-    changeset = Admin.change_incident(%Incident{})
+  def mount(params, _session, socket) do
+    {:ok, socket |> apply_action(socket.assigns.live_action, params)}
+  end
 
-    socket =
-      socket
+  defp apply_action(socket, :new, _params) do
+    incident = %Incident{}
+    changeset = Admin.change_incident(incident)
+
+    socket
       |> assign(page_title: "New Incident")
+      |> assign(incident: incident)
       |> assign(:form, to_form(changeset))
+  end
 
-    {:ok, socket}
+  defp apply_action(socket, :edit, %{"id" => id}) do
+    incident = Admin.get_incident!(id)
+    changeset = Admin.change_incident(incident)
+
+    socket
+      |> assign(page_title: "New Incident")
+      |> assign(incident: incident)
+      |> assign(:form, to_form(changeset))
   end
 
   def render(assigns) do
@@ -47,21 +60,36 @@ defmodule HeadsUpWeb.AdminIncidentLive.Form do
   end
 
   def handle_event("save", %{"incident" => incident_params}, socket) do
-    socket = case Admin.create_incident(incident_params) do
+    {:noreply, socket |> save_incident(socket.assigns.live_action, incident_params)}
+  end
+
+  def handle_event("validate", %{"incident" => incident_params}, socket) do
+    changeset = Admin.change_incident(socket.assigns.incident, incident_params)
+    socket = socket |> assign(:form, to_form(changeset, action: :validate))
+    {:noreply, socket}
+  end
+
+  defp save_incident(socket, :new, incident_params) do
+    case Admin.create_incident(incident_params) do
       {:ok, _incident} ->
         socket
-        |> put_flash(:info, "Incident created successfully")
+        |> put_flash(:info, "Incident created successfully!")
         |> push_navigate(to: ~p"/admin/incidents")
 
       {:error, changeset} ->
         socket |> assign(:form, to_form(changeset))
     end
-    {:noreply, socket}
   end
 
-  def handle_event("validate", %{"incident" => incident_params}, socket) do
-    changeset = Admin.change_incident(%Incident{}, incident_params)
-    socket = socket |> assign(:form, to_form(changeset, action: :validate))
-    {:noreply, socket}
+  defp save_incident(socket, :edit, incident_params) do
+    case Admin.update_incident(socket.assigns.incident, incident_params) do
+      {:ok, _incident} ->
+        socket
+        |> put_flash(:info, "Incident updated successfully!")
+        |> push_navigate(to: ~p"/admin/incidents")
+
+      {:error, changeset} ->
+        socket |> assign(:form, to_form(changeset))
+    end
   end
 end

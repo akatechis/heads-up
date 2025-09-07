@@ -34,8 +34,25 @@ defmodule HeadsUpWeb.AdminIncidentLive.Index do
         <:col label="Priority" :let={{_dom_id, incident}}>
           <p>{incident.priority}</p>
         </:col>
+        <:action :let={{_dom_id, incident}}>
+          <.link phx-link="redirect" navigate={~p"/admin/incidents/#{incident}/edit"}>
+            <.icon name="hero-pencil" class="h-4 w-4" /> Edit
+          </.link>
+        </:action>
+        <:action :let={{_dom_id, incident}}>
+          <.link phx-click="delete" phx-value-id={incident.id} data-confirm="Are you sure?">
+            <.icon name="hero-trash" class="h-4 w-4" /> Delete
+          </.link>
+        </:action>
       </.table>
     </div>
     """
+  end
+
+  def handle_event("delete", %{"id" => id}, socket) do
+    incident = Admin.get_incident!(id)
+    {:ok, _} = Admin.delete_incident(incident)
+
+    {:noreply, socket |> stream_delete(:incidents, incident) |> put_flash(:info, "Incident deleted successfully")}
   end
 end
